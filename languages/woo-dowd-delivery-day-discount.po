@@ -1,0 +1,205 @@
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: Order Delivery Date for WooCommerce Day of Week "
+"Discount\n"
+"POT-Creation-Date: 2019-03-18 17:37+0100\n"
+"PO-Revision-Date: 2019-03-18 17:40+0100\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: order-delivery-date-for-woocommerce-dow-discount.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
+"Language: en_US\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: class-woo-dowd-settings.php:29
+msgid "Day of Week Discount Settings"
+msgstr "Day of Week Discount Settings"
+
+#: class-woo-dowd-settings.php:36
+msgid "Enable Day of Week Discount:"
+msgstr "Enable Day of Week Discount:"
+
+#: class-woo-dowd-settings.php:40
+msgid ""
+"Enable the shipping discount based on the day of week and the settings below."
+msgstr ""
+"Enable the shipping discount based on the day of week and the settings below."
+
+#: class-woo-dowd-settings.php:45
+msgid "Text for calculated Free Shipping:"
+msgstr "Text for calculated Free Shipping:"
+
+#: class-woo-dowd-settings.php:49
+msgid "Enter text to show when discount calculates to Free Shipping."
+msgstr "Enter text to show when discount calculates to Free Shipping."
+
+#: class-woo-dowd-settings.php:54
+msgid "Text for Percentage Discount Shipping:"
+msgstr "Text for Percentage Discount Shipping:"
+
+#: class-woo-dowd-settings.php:58
+msgid ""
+"Enter text to show when discount is a percentage. Use \"@amt@\" to display "
+"the actual percent."
+msgstr ""
+"Enter text to show when discount is a percentage. Use \"@amt@\" to display "
+"the actual percent."
+
+#: class-woo-dowd-settings.php:63
+msgid "Text for Shipping discounted by an Amount:"
+msgstr "Text for Shipping discounted by an Amount:"
+
+#: class-woo-dowd-settings.php:67
+msgid ""
+"Enter text to show when discount is an amount. Use \"@amt@\" to display the "
+"actual amount."
+msgstr ""
+"Enter text to show when discount is an amount. Use \"@amt@\" to display the "
+"actual amount."
+
+#: class-woo-dowd-settings.php:73
+msgid "Product Inclusion/Exclusion:"
+msgstr "Product Inclusion/Exclusion:"
+
+#: class-woo-dowd-settings.php:101
+msgid "Day of Week Discount Table:"
+msgstr "Day of Week Discount Table:"
+
+#: class-woo-dowd-settings.php:247
+msgid "Product ids to include or exclude:"
+msgstr "Product ids to include or exclude:"
+
+#: class-woo-dowd-settings.php:253 class-woo-dowd-settings.php:267
+msgid "Include"
+msgstr "Include"
+
+#: class-woo-dowd-settings.php:256 class-woo-dowd-settings.php:270
+msgid "Exclude"
+msgstr "Exclude"
+
+#: class-woo-dowd-settings.php:261
+msgid "Product categories to include or exclude:"
+msgstr "Product categories to include or exclude:"
+
+#: class-woo-dowd-settings.php:299
+msgid "Day of Week"
+msgstr "Day of Week"
+
+#: class-woo-dowd-settings.php:300
+msgid "Start Date"
+msgstr "Start Date"
+
+#: class-woo-dowd-settings.php:301
+msgid "End Date"
+msgstr "End Date"
+
+#: class-woo-dowd-settings.php:302
+msgid "Discount Type"
+msgstr "Discount Type"
+
+#: class-woo-dowd-settings.php:303
+msgid "Discount Amount"
+msgstr "Discount Amount"
+
+#: class-woo-dowd-settings.php:327
+msgid "percent"
+msgstr "percent"
+
+#: class-woo-dowd-settings.php:328
+msgid "amount"
+msgstr "amount"
+
+#: order-delivery-date-for-woocommerce-dow-discount.php:94
+msgid "(Free Shipping)"
+msgstr "(Free Shipping)"
+
+#: order-delivery-date-for-woocommerce-dow-discount.php:95
+#, php-format
+msgid "(@amt@% discount)"
+msgstr "(@amt@% discount)"
+
+#: order-delivery-date-for-woocommerce-dow-discount.php:96
+msgid "(@amt@ off)"
+msgstr "(@amt@ off)"
+
+#: order-delivery-date-for-woocommerce-dow-discount.php:143
+msgid ""
+"Order Delivery Date for WooCommerce Day of Week Discount plugin requires "
+"that Order Delivery Date for WooCommerce be installed and activated."
+msgstr ""
+"Order Delivery Date for WooCommerce Day of Week Discount plugin requires "
+"that Order Delivery Date for WooCommerce be installed and activated."
+
+#: order-delivery-date-for-woocommerce-dow-discount.php:156
+msgid ""
+"This version of Order Delivery Date for WooCommerce Day of Week Discount "
+"plugin ("
+msgstr ""
+"This version of Order Delivery Date for WooCommerce Day of Week Discount "
+"plugin ("
+
+#: order-delivery-date-for-woocommerce-dow-discount.php:158
+msgid ""
+") has NOT been tested with this version of Order Delivery Date Lite for "
+"WooCommerce ("
+msgstr ""
+") has NOT been tested with this version of Order Delivery Date Lite for "
+"WooCommerce ("
+
+#: uninstall.php:17 woo-dowd-config.php:33
+msgid "Sunday"
+msgstr "Sunday"
+
+#: uninstall.php:18 woo-dowd-config.php:34
+msgid "Monday"
+msgstr "Monday"
+
+#: uninstall.php:19 woo-dowd-config.php:35
+msgid "Tuesday"
+msgstr "Tuesday"
+
+#: uninstall.php:20 woo-dowd-config.php:36
+msgid "Wednesday"
+msgstr "Wednesday"
+
+#: uninstall.php:21 woo-dowd-config.php:37
+msgid "Thursday"
+msgstr "Thursday"
+
+#: uninstall.php:22 woo-dowd-config.php:38
+msgid "Friday"
+msgstr "Friday"
+
+#: uninstall.php:23 woo-dowd-config.php:39
+msgid "Saturday"
+msgstr "Saturday"
+
+#. Plugin Name of the plugin/theme
+msgid "Order Delivery Date for WooCommerce Day of Week Discount"
+msgstr "Order Delivery Date for WooCommerce Day of Week Discount"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://david.leighweb.com"
+msgstr "https://david.leighweb.com"
+
+#. Description of the plugin/theme
+msgid ""
+"This plugin extends the Order Delivery Date Lite for WooCommerce plugin to"
+msgstr ""
+"This plugin extends the Order Delivery Date Lite for WooCommerce plugin to"
+
+#. Author of the plugin/theme
+msgid "David Leigh"
+msgstr "David Leigh"
