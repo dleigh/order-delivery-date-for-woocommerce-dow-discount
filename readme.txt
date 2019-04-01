@@ -1,6 +1,7 @@
 === Order Delivery Date for WooCommerce Day of Week Discount ===
 Contributors: David Leigh
 Author URI: https://david.leighweb.com/
+Plugin URI: https://github.com/dleigh/order-delivery-date-for-woocommerce-dow-discount
 Tags: delivery date, order delivery date, woocommerce delivery date, delivery, order delivery, day of week, discount
 Requires at least: ?
 Tested up to: 5.1.0
@@ -34,6 +35,9 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin to enabl
 
 == Changelog ==
 
-= 1.0 (2019-03-07) =
+= 1.1.0 (2019-03-18) =
+* Added the ability to include/exclude specific posts and specific categories
+
+= 1.0.0 (2019-03-07) =
 * Initial release.
 

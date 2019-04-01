@@ -126,7 +126,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 				}
 			} else {
 				$current_version_pair = $this->get_woo_dowd_version() . '-' . $this->woo_dowd_orddd_get_version();
-				if ( ! in_array( $current_version_pair, $woo_dowd_tested_plugin_version_pairs ) ) {
+				if ( ! in_array( $current_version_pair, $woo_dowd_tested_plugin_version_pairs, true ) ) {
 					add_action( 'admin_notices', array( 'Order_Delivery_Date_Dow_Discount', 'woo_dowd_untested_version_pair_notice' ) );
 				}
 			}
@@ -139,7 +139,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 * @since 1.0
 		 */
 		public static function woo_dowd_disabled_notice() {
-			$class = 'notice notice-error';
+			$class   = 'notice notice-error';
 			$message = __( 'Order Delivery Date for WooCommerce Day of Week Discount plugin requires that Order Delivery Date for WooCommerce be installed and activated.', 'woo-dowd-delivery-day-discount' );
 
 			printf( esc_html( '<div class="%1$s"><p>%2$s</p></div>' ), esc_html( $class ), esc_html( $message ) );
@@ -152,7 +152,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 * @since 1.0
 		 */
 		public function woo_dowd_untested_version_pair_notice() {
-			$class = 'notice notice-error';
+			$class    = 'notice notice-error';
 			$message1 = __( 'This version of Order Delivery Date for WooCommerce Day of Week Discount plugin (', 'woo-dowd-delivery-day-discount' );
 			$message2 = Order_Delivery_Date_Dow_Discount::get_woo_dowd_version();
 			$message3 = __( ') has NOT been tested with this version of Order Delivery Date Lite for WooCommerce (', 'woo-dowd-delivery-day-discount' );
@@ -168,7 +168,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 * @since 1.0
 		 */
 		public function get_woo_dowd_version() {
-			$plugin_data = get_plugin_data( __FILE__ );
+			$plugin_data    = get_plugin_data( __FILE__ );
 			$plugin_version = $plugin_data['Version'];
 			return $plugin_version;
 		}
@@ -181,7 +181,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 */
 		public function woo_dowd_capabilities() {
 			$role = get_role( 'shop_manager' );
-			if ( '' != $role ) {
+			if ( '' !== $role ) {
 				$role->add_cap( 'manage_options' );
 			}
 		}
@@ -342,7 +342,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 				$product_categories = explode( ' ', $product_categories );
 				// Check each cart item to see if it's eligible.
 				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-					$id_found       = in_array( $cart_item['data']->get_id(), $product_ids );
+					$id_found       = in_array( $cart_item['data']->get_id(), $product_ids, true );
 					$category_found = has_term( $product_categories, 'product_cat', $cart_item['data']->get_id() );
 					if ( $category_found ) {                        // This product's category is in the options list.
 						if ( 'include' === $categories_in_ex ) {     // The categories in the list are to be "included".
@@ -396,7 +396,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 				if ( 'percent' === $woo_dowd_delivery_day_array[ $woo_dowd_delivery_dow ]['discount-type'] ) {
 					$rates[ $key ]->cost   = number_format( $rates[ $key ]->cost - ( $rates[ $key ]->cost * ( $woo_dowd_discount_amount / 100 ) ), 2 );
 					$rates[ $key ]->label .= '<span class="woo-dowd-pct-label"> ' . esc_html( str_replace( WOO_DOWD_VALUE_REPLACE, $woo_dowd_discount_amount, get_option( 'woo_dowd_percentage_text' ) ) ) . '</span>';
-					$conversion_rate = $rates[ $key ]->cost / $original_cost;
+					$conversion_rate       = $rates[ $key ]->cost / $original_cost;
 				} else {
 					$rates[ $key ]->cost = number_format( $rates[ $key ]->cost - $woo_dowd_discount_amount, 2 );
 					if ( $rates[ $key ]->cost <= 0 ) {
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 						$conversion_rate       = 0;
 					} else {
 						$rates[ $key ]->label .= '<span class="woo-dowd-amt-label"> ' . str_replace( WOO_DOWD_VALUE_REPLACE, wc_price( $woo_dowd_discount_amount ), esc_html( get_option( 'woo_dowd_amount_text' ) ) ) . '</span>';
-						$conversion_rate = $rates[ $key ]->cost / $original_cost;
+						$conversion_rate       = $rates[ $key ]->cost / $original_cost;
 					}
 				}
 
@@ -413,7 +413,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 				* Recalculate taxes for this shipping method.
 				*/
 				$current_user = wp_get_current_user();
-				$taxes = array();
+				$taxes        = array();
 				foreach ( $rates[ $key ]->taxes as $tax_key => $tax ) {
 					if ( $tax > 0 ) { // Set the new tax cost.
 							// Set the new line tax cost in the taxes array.
