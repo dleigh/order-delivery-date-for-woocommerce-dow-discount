@@ -13,7 +13,7 @@ Order Delivery Date Day of Week Discount plugin allows the store owners who have
 
 == Description ==
 
-This plugin extends the Order Delivery Date Lite for WooCommerce plugin to enable the store owner to give discounts by the day of the week of the date selected using the Order Delivery Date plugin. As such it depends on the Order Delivery Date Lite plugin (free). 
+This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https://wordpress.org/plugins/order-delivery-date-for-woocommerce/) to enable the store owner to give discounts by the day of the week of the date selected using the Order Delivery Date plugin. As such it depends on the Order Delivery Date Lite plugin (free). 
 
 ### This plugin allows you to do the following
 
