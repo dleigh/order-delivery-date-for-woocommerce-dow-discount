@@ -18,7 +18,11 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin to enabl
 ### This plugin allows you to do the following
 
 * For a given day of the week, within a date range or exclusive of date range, specify a flat amount of discount on shipping
+	* Specify specific text, with an amount placeholder (@amt@), that is placed next to the shipping amount. (e.g. "($10 off)") 
 * For a given day of the week, within a date range or exclusive of date range, specify a discount percentage on shipping
+	* Specify specific text, with an amount placeholder (@amt@), that is placed next to the shipping amount. (e.g. "(30% discount)") 
+* 1.1.0 You can specify a list of product ids and then whether to "include" or "exclude" those ids from the rest of the shipping discount rules
+* 1.1.0 You can specify a list of catagories and then whether to "include" or "exclude" those catagories from the rest of the shipping discount rules
 
 == Installation ==
 
