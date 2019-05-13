@@ -6,12 +6,11 @@
 */
 // Watch the date field for a change and invoke the shipping updates if it changes
 jQuery(document).ready(function($){
+	console.log('my document ready');
+
 	jQuery.fn.watch = function( id, fn ) {
-
 		return this.each(function(){
-
 			var self = this;
-
 			var oldVal = self[id];
 			$(self).data(
 				'watch_timer',
@@ -28,11 +27,19 @@ jQuery(document).ready(function($){
 	};
  
 	$('#h_deliverydate').watch('value', function(propName, oldVal, newVal){
-		setTimeout(
-			function() 
-			{
-				jQuery('body').trigger("update_checkout");
-				console.log('triggered checkout page shipping update event');
-			}, 2000);
+		console.log('checkout update process initiated');
+		var dateObject = $( '#e_deliverydate' ).datepicker( "getDate" );
+		var deliverydate = $.datepicker.formatDate( "yy-mm-dd", dateObject );
+		
+		var data = {
+			'action':       'woo_dowd_delivery_date_capture',
+			'_ajax_nonce':  woo_dowd_ajax_object.nonce,
+			'deliverydate': deliverydate
+		};
+
+		$.post( woo_dowd_ajax_object.ajax_url , data, function( response ) {
+			console.log('checkout update ajax call about to start');
+			$('body').trigger("update_checkout");
+		});
 	});
 });
