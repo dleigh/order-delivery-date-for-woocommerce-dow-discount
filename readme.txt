@@ -40,6 +40,14 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https:/
 
 == Changelog ==
 
+= 1.2.0 (2019-05-13) =
+* The parent plugin has evolved and changed the way that the date was stored.  They decided to store it locally on the client machine.  So This
+  update was a major reworking of how that date gets to this plugin.  Ajax was added to accomplish this as well as transients to store data
+  between our ajax call and the call to Woo's ajax to update the cart or checkout pages.  Additionally, much logic was added to account for the
+  strange way that Woo behaves when invoking its shipping filter hook.
+* The settings on the admin side were visually tidy-ed up a bit
+* Some dead code was removed
+
 = 1.1.0 (2019-03-18) =
 * Added the ability to include/exclude specific posts and specific categories
 

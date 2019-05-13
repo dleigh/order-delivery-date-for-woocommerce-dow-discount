@@ -21,7 +21,7 @@
  *
  * @since 1.0
  */
-$wpefield_version = '1.1.0';
+$wpefield_version = '1.2.0';
 
 /**
  * Include the require files
@@ -199,7 +199,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		/**
 		 * Enqueue styles in the admin footer only for the settings page
 		 *
-		 * @since 1.0
+		 * @since 1.2.0
 		 */
 		public function woo_dowd_admin_style( $hook ) {
 			if ( 'toplevel_page_order_delivery_date_lite' != $hook ) {

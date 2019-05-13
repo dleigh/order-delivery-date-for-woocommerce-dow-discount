@@ -22,7 +22,7 @@ define( 'WOO_DOWD_VALUE_REPLACE', '@amt@' );
 $woo_dowd_tested_plugin_version_pairs = array(
 	'1.0.0-3.6.1',
 	'1.1.0-3.6.1',
-	'1.1.0-3.8.1',
+	'1.2.0-3.8.1',
 );
 
 /**
