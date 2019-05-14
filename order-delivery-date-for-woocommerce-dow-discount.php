@@ -6,7 +6,7 @@
  *			  enable the store owner to give discounts by the day of the week of the
  *			  date selected using the Order Delivery Date plugin
  * Author: David Leigh
- * Version: 1.1.0
+ * Version: 1.2.1
  * Author URI: https://david.leighweb.com
  * Text Domain: woo-dowd
  * Requires PHP: 5.6
@@ -21,7 +21,7 @@
  *
  * @since 1.0
  */
-$wpefield_version = '1.2.0';
+$wpefield_version = '1.2.1';
 
 /**
  * Include the require files
@@ -376,15 +376,30 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 			 * the cart is stored) in the database and sometimes it does.  Can't figure out why.  Also it
 			 * gets called a different number of times in different situations.  So the key was to figure
 			 * out how many times it has been called and to actually do the calculations only ONCE and only 
-			 * on an iteration where the data is actually SAVED.  These "magic numbers" were determined
-			 * below from testing.  I hope they remain useful.
+			 * on an iteration where the data is actually SAVED.  
+			 * 
+			 * I originally came up with specific "magic numbers" for a given installation but moving to 
+			 * another installation the checkout numbers didn't work.  Further testing in the new installation
+			 * showed that "2" worked in every situation.  I then went back to the original environment and
+			 * "2" worked there - regardless of how many times it was called, the "2" worked.  So I'm 
+			 * leaving it like that but also leaving the code just in case there is a situation where "2"
+			 * does not work.
+			 * 
+			 * I tested this via loading up a log file with the iteration numbers and when the calculation 
+			 * was done.  So here's some of the code - but you'll have to put it in the right places to do
+			 * the actual test: 
+			 * $this->iteration++;
+			 * $this->json_ajax_response_array['mydata'] = 'local iteration='.$this->iteration.' transient iteration='.$transient_iteration;
+			 * error_log($this->json_ajax_response_array['mydata']);
+			 * $this->json_ajax_response_array['mydata'] .= ' delivery date='.$woo_dowd_delivery_date;
+			 * $this->json_ajax_response_array['mydata'] .= ' cost='.$rates[ $key ]->cost.' label='.$rates[ $key ]->label;
 			 */
 			if ( ( is_page( 'cart' ) || is_cart() ) ) {
-				$calculation_iteration = 4;
+				$calculation_iteration = 2;
 			} 
 			if ( ( is_page( 'checkout' ) || is_checkout() ) ) {
 				if ( get_transient( 'woo_dowd_ajax_' . $session_cookie[0] ) ) {
-					$calculation_iteration = 6;
+					$calculation_iteration = 2;
 				} else {
 					$calculation_iteration = 2;
 				}
@@ -400,7 +415,6 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 					$transient_iteration = 0;
 				}
 			}
-
 			/* Increment the transient iteration counter and get out if it's not time to really do something. */
 			$transient_iteration++;
 			set_transient( 'woo_dowd_iteration_' . $session_cookie[0] , $transient_iteration, HOUR_IN_SECONDS );
@@ -500,8 +514,13 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 				$product_categories = explode( ' ', $product_categories );
 				// Check each cart item to see if it's eligible.
 				foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-					$id_found	    = in_array( $cart_item['data']->get_id(), $product_ids, true );
-					$category_found = has_term( $product_categories, 'product_cat', $cart_item['data']->get_id() );
+					if ( $cart_item['data']->get_parent_id() > 0 ) {  // need to see if this is a product with variations or not
+						$id_found	    = in_array( $cart_item['data']->get_parent_id(), $product_ids, true );
+						$category_found = has_term( $product_categories, 'product_cat', $cart_item['data']->get_parent_id() );
+					} else {
+						$id_found	    = in_array( $cart_item['data']->get_id(), $product_ids, true );
+						$category_found = has_term( $product_categories, 'product_cat', $cart_item['data']->get_id() );
+					}
 					if ( $category_found ) {						// This product's category is in the options list.
 						if ( 'include' === $categories_in_ex ) {	 // The categories in the list are to be "included".
 							if ( $id_found ) {						  // The product's id is in the options list.

@@ -24,6 +24,7 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https:/
 * When the discount makes the shipping free, you can add text of your choice to indicate that. (e.g. "(Free Shipping)")
 * 1.1.0 You can specify a list of product ids and then whether to "include" or "exclude" those ids from the rest of the shipping discount rules
 * 1.1.0 You can specify a list of catagories and then whether to "include" or "exclude" those catagories from the rest of the shipping discount rules
+* 1.2.1 Product/category inclusion/exclusion supports products with variations
 
 == Installation ==
 
@@ -39,6 +40,10 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https:/
 ********
 
 == Changelog ==
+
+= 1.2.1 (2019-05-14) =
+* Refined the iteration logic to work more faithfully in different installations
+* Added the ability for product/category inclusion/exclusion to work on products that have variations as well
 
 = 1.2.0 (2019-05-13) =
 * The parent plugin has evolved and changed the way that the date was stored.  They decided to store it locally on the client machine.  So This
