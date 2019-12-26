@@ -23,19 +23,29 @@ class Woo_Dowd_Settings {
 	 */
 	public static function woo_dowd_dow_discount_admin_settings() {
 		global $woo_dowd_weekdays;
+		global $woo_dowd_orddd_active;
+		if ( 'lite' === $woo_dowd_orddd_active ) {
+			$woo_dowd_orddd_setting_page  = 'orddd_lite_date_settings_page';
+			$woo_dowd_orddd_date_settings = 'orddd_lite_date_settings';
+		}
+		if ( 'pro' === $woo_dowd_orddd_active ) {
+			$woo_dowd_orddd_setting_page  = 'orddd_date_settings_page';
+			$woo_dowd_orddd_date_settings = 'orddd_date_settings';
+		}
+
 		// First, we register a section. This is necessary since all future options must belong to one.
 		add_settings_section(
 			'woo_dowd_date_settings_section',                               // ID used to identify this section and with which to register options.
 			__( 'Day of Week Discount Settings', 'woo-dowd-delivery-day-discount' ),   // Title to be displayed on the administration page.
 			array( 'woo_dowd_settings', 'woo_dowd_dow_discount_setting' ),  // Callback used to render the description of the section.
-			'orddd_lite_date_settings_page'                                 // Page on which to add this section of options (Order Delivery Date plugin).
+			$woo_dowd_orddd_setting_page                                    // Page on which to add this section of options (Order Delivery Date plugin).
 		);
 
 		add_settings_field(
 			'woo_dowd_enable_dow_discount',
 			__( 'Enable Day of Week Discount:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_enable_dow_discount_callback' ),
-			'orddd_lite_date_settings_page',
+			$woo_dowd_orddd_setting_page,
 			'woo_dowd_date_settings_section',
 			array( __( 'Enable the shipping discount based on the day of week and the settings below.', 'woo-dowd-delivery-day-discount' ) )
 		);
@@ -44,7 +54,7 @@ class Woo_Dowd_Settings {
 			'woo_dowd_free_text',
 			__( 'Text for calculated Free Shipping:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_free_text_callback' ),
-			'orddd_lite_date_settings_page',
+			$woo_dowd_orddd_setting_page,
 			'woo_dowd_date_settings_section',
 			array( '&nbsp;' . __( 'Enter text to show when discount calculates to Free Shipping.', 'woo-dowd-delivery-day-discount' ) )
 		);
@@ -53,7 +63,7 @@ class Woo_Dowd_Settings {
 			'woo_dowd_percentage_text',
 			__( 'Text for Percentage Discount Shipping:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_percentage_text_callback' ),
-			'orddd_lite_date_settings_page',
+			$woo_dowd_orddd_setting_page,
 			'woo_dowd_date_settings_section',
 			array( '&nbsp;' . __( 'Enter text to show when discount is a percentage. Use "@amt@" to display the actual percent.', 'woo-dowd-delivery-day-discount' ) )
 		);
@@ -62,7 +72,7 @@ class Woo_Dowd_Settings {
 			'woo_dowd_amount_text',
 			__( 'Text for Shipping discounted by an Amount:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_amount_text_callback' ),
-			'orddd_lite_date_settings_page',
+			$woo_dowd_orddd_setting_page,
 			'woo_dowd_date_settings_section',
 			array( '&nbsp;' . __( 'Enter text to show when discount is an amount. Use "@amt@" to display the actual amount.', 'woo-dowd-delivery-day-discount' ) )
 		);
@@ -72,26 +82,26 @@ class Woo_Dowd_Settings {
 			'woo_dowd_dow_inclusion_exclusion',
 			__( 'Product Inclusion/Exclusion:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_dow_inclusion_exclusion_callback' ),
-			'orddd_lite_date_settings_page',
+			$woo_dowd_orddd_setting_page,
 			'woo_dowd_date_settings_section',
 			array()
 		);
 
 		// For the inclusion/exclusion options, we don't add individual fields, but we do register the settings.
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_product_ids'
 		);
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_product_ids_in_ex'
 		);
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_product_categories'
 		);
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_product_categories_in_ex'
 		);
 
@@ -100,7 +110,7 @@ class Woo_Dowd_Settings {
 			'woo_dowd_dow_discount_table',
 			__( 'Day of Week Discount Table:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_dow_discount_table_callback' ),
-			'orddd_lite_date_settings_page',
+			$woo_dowd_orddd_setting_page,
 			'woo_dowd_date_settings_section',
 			array()
 		);
@@ -108,41 +118,41 @@ class Woo_Dowd_Settings {
 		// For the date table, we don't add individual fields, but we do register the settings.
 		foreach ( $woo_dowd_weekdays as $n => $day_name ) {
 			register_setting(
-				'orddd_lite_date_settings',
+				$woo_dowd_orddd_date_settings,
 				$n . '_date_start'
 			);
 			register_setting(
-				'orddd_lite_date_settings',
+				$woo_dowd_orddd_date_settings,
 				$n . '_date_end'
 			);
 			register_setting(
-				'orddd_lite_date_settings',
+				$woo_dowd_orddd_date_settings,
 				$n . '_discount_type'
 			);
 			register_setting(
-				'orddd_lite_date_settings',
+				$woo_dowd_orddd_date_settings,
 				$n . '_discount_amount'
 			);
 		}
 
 		// And then we register all the rest of the fields for which we created "settings fields".
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_enable_dow_discount'
 		);
 
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_free_text'
 		);
 
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_percentage_text'
 		);
 
 		register_setting(
-			'orddd_lite_date_settings',
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_amount_text'
 		);
 

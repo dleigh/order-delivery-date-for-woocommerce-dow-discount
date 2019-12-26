@@ -5,7 +5,8 @@
  * @package  Order-Delivery-Date-for-WooCommerce-Day-of-Week-Discount
  */
 
-global $woo_dowd_weekdays, $woo_dowd_languages, $woo_dowd_languages_locale, $woo_dowd_tested_plugin_version_pairs;
+global $woo_dowd_weekdays, $woo_dowd_languages, $woo_dowd_languages_locale;
+global $woo_dowd_tested_lite_plugin_version_pairs, $woo_dowd_tested_pro_plugin_version_pairs;
 
 /**
  * Define the constants
@@ -19,12 +20,18 @@ define( 'WOO_DOWD_VALUE_REPLACE', '@amt@' );
  * that have been tested together in order to let the user know if the the version have or have
  * not been tested together.
  */
-$woo_dowd_tested_plugin_version_pairs = array(
+$woo_dowd_tested_lite_plugin_version_pairs = array(
 	'1.0.0-3.6.1',
 	'1.1.0-3.6.1',
 	'1.2.0-3.6.1',
 	'1.2.0-3.8.1',
 	'1.2.1-3.8.1',
+	'1.2.1-3.10',
+	'1.2.2-3.10',
+);
+$woo_dowd_tested_pro_plugin_version_pairs  = array(
+	'1.2.2-9.11',
+	'1.2.3-9.11.1',
 );
 
 /**

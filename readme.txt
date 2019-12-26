@@ -3,17 +3,24 @@ Contributors: David Leigh
 Author URI: https://david.leighweb.com/
 Plugin URI: https://github.com/dleigh/order-delivery-date-for-woocommerce-dow-discount
 Tags: delivery date, order delivery date, woocommerce delivery date, delivery, order delivery, day of week, discount
-Requires at least: ?
-Tested up to: 5.1.0
+Requires PHP: 5.6
+WC requires at least: 3.0.0
+WC tested up to: 3.5.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Order Delivery Date Day of Week Discount plugin allows the store owners who have the Order Delivery Date Lite plugin installed to specify certain days of the week where there is a discount. The plugin is fully integrated with WooCommerce. 
+This plugin extends the Order Delivery Date Lite/Pro for WooCommerce plugin to 
+enable the store owner to give discounts by the day of the 
+week of the date selected using the Order Delivery Date plugin
 
 == Description ==
 
-This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https://wordpress.org/plugins/order-delivery-date-for-woocommerce/) to enable the store owner to give discounts by the day of the week of the date selected using the Order Delivery Date plugin. As such it depends on the Order Delivery Date Lite plugin (free). 
+This plugin extends the Order Delivery Date Lite/Pro for WooCommerce plugin 
+(https://wordpress.org/plugins/order-delivery-date-for-woocommerce/) 
+to enable the store owner to give discounts by the day of the week of the date selected 
+using the Order Delivery Date plugin. As such it depends on the Order Delivery Date Lite 
+plugin (free) or the Order Delivery Date Pro plugin (paid). 
 
 ### This plugin allows you to do the following
 
@@ -22,9 +29,10 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https:/
 * For a given day of the week, within a date range or exclusive of date range, specify a discount percentage on shipping
 	* Specify specific text, with an amount placeholder (@amt@), that is placed next to the shipping amount. (e.g. "(30% discount)") 
 * When the discount makes the shipping free, you can add text of your choice to indicate that. (e.g. "(Free Shipping)")
-* 1.1.0 You can specify a list of product ids and then whether to "include" or "exclude" those ids from the rest of the shipping discount rules
-* 1.1.0 You can specify a list of catagories and then whether to "include" or "exclude" those catagories from the rest of the shipping discount rules
-* 1.2.1 Product/category inclusion/exclusion supports products with variations
+* 1.1.0 You can specify a list of product ids and then whether to "include" or "exclude" those ids from the rest of the shipping 
+    discount rules
+* 1.1.0 You can specify a list of catagories and then whether to "include" or "exclude" those catagories from the rest of the 
+    shipping discount rules
 
 == Installation ==
 
@@ -40,6 +48,12 @@ This plugin extends the Order Delivery Date Lite for WooCommerce plugin (https:/
 ********
 
 == Changelog ==
+
+= 1.2.3 (2019-12-26) =
+* Added the ability for this plugin to depend on the Pro version of the parent plugin as well as the free version.
+
+= 1.2.2 (2019-11-15) =
+* Fixed a bug in the version compatibility code message display that messed up the WordPress admin
 
 = 1.2.1 (2019-05-14) =
 * Refined the iteration logic to work more faithfully in different installations
