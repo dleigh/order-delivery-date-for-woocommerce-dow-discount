@@ -32,6 +32,7 @@ $woo_dowd_tested_lite_plugin_version_pairs = array(
 $woo_dowd_tested_pro_plugin_version_pairs  = array(
 	'1.2.2-9.11',
 	'1.2.3-9.11.1',
+	'1.3.0-9.12',
 );
 
 /**

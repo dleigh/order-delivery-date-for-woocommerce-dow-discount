@@ -9,3 +9,7 @@
 .woo_dowd_dow_discount_table th {
 	padding-left: 10px;
 }
+
+#woo_dowd_coupons_incompatible_message {
+	width: 50%;
+}

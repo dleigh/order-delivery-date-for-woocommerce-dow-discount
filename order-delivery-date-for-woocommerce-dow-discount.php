@@ -6,7 +6,7 @@
  *            enable the store owner to give discounts by the day of the week of the
  *            date selected using the Order Delivery Date plugin
  * Author: David Leigh
- * Version: 1.2.3
+ * Version: 1.3.0
  * Author URI: https://david.leighweb.com
  * Text Domain: woo-dowd
  * Requires PHP: 5.6
@@ -21,7 +21,7 @@
  *
  * @since 1.0
  */
-$wpefield_version = '1.2.3';
+$woo_dowd_version = '1.3.0';
 
 /**
  * Include the require files
@@ -112,6 +112,12 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 			add_option( 'woo_dowd_product_ids_in_ex', 'include' );
 			add_option( 'woo_dowd_product_categories_in_ex', 'include' );
 			add_option( 'woo_dowd_enable_dow_discount', 'checked' );
+			add_option( 'woo_dowd_enable_coupons_with_dow_discount', '' );
+			add_option( 'woo_dowd_coupons_incompatible_message', __(
+				'Note: Coupons and delivery date discounts cannot be used on the same order. Remove coupon to apply delivery date discount instead.',
+				'woo-dowd-delivery-day-discount'
+				)
+			);
 			add_option( 'woo_dowd_free_text', __( '(Free Shipping)', 'woo-dowd-delivery-day-discount' ) );
 			add_option( 'woo_dowd_percentage_text', __( '(@amt@% discount)', 'woo-dowd-delivery-day-discount' ) );
 			add_option( 'woo_dowd_amount_text', __( '(@amt@ off)', 'woo-dowd-delivery-day-discount' ) );
@@ -242,12 +248,13 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 * @since 1.2.0
 		 */
 		public function woo_dowd_admin_style( $hook ) {
+			global $woo_dowd_version;
 			if ( ( 'toplevel_page_order_delivery_date_lite' !== $hook ) &&
 				( 'toplevel_page_order_delivery_date' !== $hook ) ) {
 				return;
 			}
 
-			wp_enqueue_style( 'woo-dowd-admin-style', esc_url( plugins_url( '/css/admin-style.css', __FILE__ ) ), '', '', false );
+			wp_enqueue_style( 'woo-dowd-admin-style', esc_url( plugins_url( '/css/admin-style.css', __FILE__ ) ), '', $woo_dowd_version, false );
 		}
 
 		/**
@@ -256,21 +263,21 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 * @since 1.0
 		 */
 		public function woo_dowd_front_cart_scripts_js() {
-			global $wpefield_version;
+			global $woo_dowd_version;
 			if ( 'on' === get_option( 'woo_dowd_enable_dow_discount' ) ) {
 
 				wp_enqueue_script(
 					'woo-dowd-cart-update-shipping',
 					esc_url( plugins_url( '/js/woo-dowd-cart-update-shipping.js', __FILE__ ) ),
 					array( 'jquery' ),
-					'',
+					$woo_dowd_version,
 					false
 				);
 
 				wp_localize_script(
 					'woo-dowd-cart-update-shipping',
 					'woo_dowd_ajax_object',
-					array( 
+					array(
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
 						'nonce'    => wp_create_nonce( 'woo-dowd-cart-checkout-nonce' ),
 					)
@@ -284,23 +291,23 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		 * @since 1.0
 		 */
 		public function woo_dowd_front_checkout_scripts_js() {
-			global $wpefield_version;
+			global $woo_dowd_version;
 			if ( 'on' === get_option( 'woo_dowd_enable_dow_discount' ) ) {
 
 				wp_enqueue_script(
 					'woo-dowd-checkout-update-shipping',
 					esc_url( plugins_url( '/js/woo-dowd-checkout-update-shipping.js', __FILE__ ) ),
 					array( 'jquery' ),
-					'',
+					$woo_dowd_version,
 					false
 				);
 
 				wp_localize_script(
 					'woo-dowd-checkout-update-shipping',
 					'woo_dowd_ajax_object',
-					array( 
+					array(
 						'ajax_url' => admin_url( 'admin-ajax.php' ),
-						'nonce'    => wp_create_nonce( 'woo-dowd-cart-checkout-nonce' )
+						'nonce'    => wp_create_nonce( 'woo-dowd-cart-checkout-nonce' ),
 					)
 				);
 			}
@@ -346,7 +353,7 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 		public function woo_dowd_delivery_date_capture() {
 			if ( check_ajax_referer( 'woo-dowd-cart-checkout-nonce', 'nonce', false ) ) {
 				if ( isset( $_POST['deliverydate'] ) ) {
-					$woo_dowd_delivery_date = sanitize_text_field( $_POST['deliverydate'] ); 
+					$woo_dowd_delivery_date = sanitize_text_field( wp_unslash( $_POST['deliverydate'] ) );
 					if ( WC()->session->has_session() ) {
 						$session_cookie = WC()->session->get_session_cookie();
 						delete_transient( 'woo_dowd_delivery_date_' . $session_cookie[0] );
@@ -469,6 +476,12 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 			if ( $woo_dowd_delivery_date ) {
 				$woo_dowd_delivery_dow = date( 'w', strtotime( $woo_dowd_delivery_date ) );
 			} else {
+				return $rates;
+			}
+
+			/* make sure the day of week delivery discount is actually enabled */
+			$dowd_enabled = get_option( 'woo_dowd_enable_dow_discount' );
+			if ( ! $dowd_enabled ) {
 				return $rates;
 			}
 
@@ -597,6 +610,30 @@ if ( ! class_exists( 'Order_Delivery_Date_Dow_Discount' ) ) {
 			}
 
 			/*
+			* At this point we know that the user is eligible for a delivery date day of the week discount.
+			* BUT now we need to deal with the issue of coupons.  A DOWD may not be compatible with a discount
+			* based on the DOWD settings.  If it's not compatible with a coupon we need to check if there is already
+			* a coupon and let the user know that coupons and delivery discounts are not compatible.
+			*
+			* Note: to make the message display only once and at the right time, we have to look at the iterations
+			*       again just like with the rate calculation.  Otherwise, under certain circumstances, the message
+			*       will display multiple times.
+			*/
+			$coupons         = WC()->cart->get_applied_coupons();
+			$coupons_enabled = get_option( 'woo_dowd_enable_coupons_with_dow_discount' );
+			if ( WC()->cart->get_applied_coupons() ) {
+				if ( ! $coupons_enabled ) {
+					if ( $transient_iteration === $calculation_iteration ) {
+						$incompatible_message = get_option( 'woo_dowd_coupons_incompatible_message' );
+						if ( ! in_array( $incompatible_message, wc_get_notices(), true ) ) {
+							wc_add_notice( get_option( 'woo_dowd_coupons_incompatible_message' ) );
+						}
+					}
+					return $rates;
+				}
+			}
+
+				/*
 			* Otherwise, do the caclulations on the rate table and return the rate table with the changes.
 			*
 			* Note: the "<span" markup that I've tried to put on this text appears to be stripped out by WooCommerce

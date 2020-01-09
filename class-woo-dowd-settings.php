@@ -51,6 +51,24 @@ class Woo_Dowd_Settings {
 		);
 
 		add_settings_field(
+			'woo_dowd_enable_coupons_with_dow_discount',
+			__( 'Enable Coupons and Day of Week Discount together:', 'woo-dowd-delivery-day-discount' ),
+			array( 'woo_dowd_settings', 'woo_dowd_enable_coupons_with_dow_discount_callback' ),
+			$woo_dowd_orddd_setting_page,
+			'woo_dowd_date_settings_section',
+			array( __( 'Enable the use of coupons and day of week discount on the same order.', 'woo-dowd-delivery-day-discount' ) )
+		);
+
+		add_settings_field(
+			'woo_dowd_coupons_incompatible_message',
+			__( 'Notice text when coupons are disallowed with delivery discount:', 'woo-dowd-delivery-day-discount' ),
+			array( 'woo_dowd_settings', 'woo_dowd_coupons_incompatible_message_callback' ),
+			$woo_dowd_orddd_setting_page,
+			'woo_dowd_date_settings_section',
+			array( '&nbsp;' . __( 'When coupons are not allowed with the delivery discount, this notice will be displayed when a coupon is applied.', 'woo-dowd-delivery-day-discount' ) )
+		);
+
+		add_settings_field(
 			'woo_dowd_free_text',
 			__( 'Text for calculated Free Shipping:', 'woo-dowd-delivery-day-discount' ),
 			array( 'woo_dowd_settings', 'woo_dowd_free_text_callback' ),
@@ -143,6 +161,16 @@ class Woo_Dowd_Settings {
 
 		register_setting(
 			$woo_dowd_orddd_date_settings,
+			'woo_dowd_enable_coupons_with_dow_discount'
+		);
+
+		register_setting(
+			$woo_dowd_orddd_date_settings,
+			'woo_dowd_coupons_incompatible_message'
+		);
+
+		register_setting(
+			$woo_dowd_orddd_date_settings,
 			'woo_dowd_free_text'
 		);
 
@@ -180,6 +208,36 @@ class Woo_Dowd_Settings {
 		$html = '<input type="checkbox" name="woo_dowd_enable_dow_discount" id="woo_dowd_enable_dow_discount" class="day-checkbox" value="on" ' . $enable_dow_discount . ' />';
 
 		$html .= '<label for="woo_dowd_enable_dow_discount"> ' . $args[0] . '</label>';
+		echo $html;
+	}
+
+	/**
+	 * Callback for adding Day of Week Discount with coupons checkbox
+	 *
+	 * @param array $args Callback arguments.
+	 * @since 1.0
+	 */
+	public static function woo_dowd_enable_coupons_with_dow_discount_callback( $args ) {
+		$enable_coupons_with_dow_discount = '';
+		if ( 'on' === get_option( 'woo_dowd_enable_coupons_with_dow_discount' ) ) {
+			$enable_coupons_with_dow_discount = 'checked';
+		}
+
+		$html = '<input type="checkbox" name="woo_dowd_enable_coupons_with_dow_discount" id="woo_dowd_enable_coupons_with_dow_discount" class="day-checkbox" value="on" ' . $enable_coupons_with_dow_discount . ' />';
+
+		$html .= '<label for="woo_dowd_enable_coupons_with_dow_discount"> ' . $args[0] . '</label>';
+		echo $html;
+	}
+
+	/**
+	 * Callback for coupons incompatible message tag text inputbox
+	 *
+	 * @param array $args Callback arguments.
+	 * @since 1.0
+	 */
+	public static function woo_dowd_coupons_incompatible_message_callback( $args ) {
+		$html = '<input type="text" name="woo_dowd_coupons_incompatible_message" id="woo_dowd_coupons_incompatible_message" value="' . get_option( 'woo_dowd_coupons_incompatible_message' ) . '" />';
+		$html .= '<br /><label id="woo_dowd_coupons_incompatible_message_label" for="woo_dowd_coupons_incompatible_message"> ' . $args[0] . '</label>';
 		echo $html;
 	}
 

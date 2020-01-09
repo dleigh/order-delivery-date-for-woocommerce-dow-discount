@@ -49,6 +49,11 @@ plugin (free) or the Order Delivery Date Pro plugin (paid).
 
 == Changelog ==
 
+= 1.3.0 (2019-12-30) =
+* Added an option that allows or disallows the use of coupons in the same order with a day of week delivery discount.
+* Fixed a problem where the enabling of the discount delivery was not being checked.
+* A few minor code cleanups.
+
 = 1.2.3 (2019-12-26) =
 * Added the ability for this plugin to depend on the Pro version of the parent plugin as well as the free version.
 
