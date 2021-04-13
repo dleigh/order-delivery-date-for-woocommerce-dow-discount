@@ -49,6 +49,9 @@ plugin (free) or the Order Delivery Date Pro plugin (paid).
 
 == Changelog ==
 
+= 1.3.7 (2021-04-13) =
+* This release simply added the compatibility with the parent Pro plugin version 9.24.0
+
 = 1.3.6 (2021-02-16) =
 * This release simply added the compatibility with the parent Pro plugin version 9.23.0
 

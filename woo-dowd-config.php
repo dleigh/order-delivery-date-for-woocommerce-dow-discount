@@ -40,6 +40,7 @@ $woo_dowd_tested_pro_plugin_version_pairs  = array(
 	'1.3.5-9.22.0',
 	'1.3.5-9.23.0',
 	'1.3.6-9.23.0',
+	'1.3.7-9.24.0',
 );
 
 /**

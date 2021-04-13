@@ -6,7 +6,7 @@
  *            enable the store owner to give discounts by the day of the week of the
  *            date selected using the Order Delivery Date plugin
  * Author: David Leigh
- * Version: 1.3.6
+ * Version: 1.3.7
  * Author URI: https://david.leighweb.com
  * Text Domain: woo-dowd
  * Requires PHP: 5.6
@@ -23,7 +23,7 @@
  *
  * @since 1.0
  */
-$woo_dowd_version = '1.3.6';
+$woo_dowd_version = '1.3.7';
 
 /**
  * Include the require files
